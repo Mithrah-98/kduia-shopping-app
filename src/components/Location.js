@@ -1,17 +1,28 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
-const CartValue = () => {
-    const { expenses, Location } = useContext(AppContext);
-    const totalExpenses = expenses.reduce((total, item) => {
-        return (total += (item.unitprice * item.quantity));
-    }, 0);
+const Location = () => {
+  const {dispatch } = useContext(AppContext);
 
-    return (
-        <div className='alert alert-primary'>
-            <span>Cart Value: {Location}{totalExpenses}</span>
-        </div>
+    const changeLocation = (val)=>{
+            dispatch({
+                type: 'CHG_LOCATION',
+                payload: val,
+            })
+    }
+    
+
+  return (
+        <div className='alert alert-secondary'> Location {
+      <select name="Location" id="Location" onChange={event=>changeLocation(event.target.value)}>
+        <option value="£">Uk(£)</option>
+        <option value="₹">India(₹)</option>
+        <option value="€">Europe(€)</option>
+        <option value="CAD">Canada(CAD)</option>
+      </select>	
+      }	
+    </div>
     );
 };
 
-export default CartValue;
+export default Location;
